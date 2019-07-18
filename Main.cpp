@@ -190,10 +190,16 @@ int main() {
 	glBufferData(GL_ELEMENT_ARRAY_BUFFER, 6 * sizeof(GLuint), indices, GL_STATIC_DRAW);
 	///00000000000000000000000000000000000000000000000000000000000000000000000000
 
-	bool newData = true;
+	bool newData = true; int win_width, win_height; glfwGetWindowSize(window, &win_width, &win_height);
+	int preWin_width = win_width, preWin_height = win_height;
 	while (!glfwWindowShouldClose(window))
 	{
 		glfwPollEvents();
+		glfwGetWindowSize(window, &win_width, &win_height);
+		if (win_width != preWin_width || win_height != preWin_height) {
+			preWin_width = win_width; preWin_height = win_height;
+			newData = true;
+		}
 		if (newData) {
 			glClear(GL_COLOR_BUFFER_BIT);
 
